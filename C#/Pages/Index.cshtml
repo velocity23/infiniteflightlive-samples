@@ -1,0 +1,131 @@
+﻿@page
+@model IndexModel
+@using IfLiveCsharp.InfiniteFlightLiveClient 
+@{
+    ViewData["Title"] = "Infinite Flight Live API - C# Sample";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<h2>How to Use This Sample</h2>
+<p>
+    This sample is intended as a hit-the-ground-running way to interact with the Infinite Flight Live API
+    in C#. It uses the <code>InfiniteFlightLive</code> class to interact with the API, and as per the
+    <a href="#" target="_blank">license</a> you are free to use this in your own projects.
+    You'll need to add your API Key as an Environment Variable or App Secret called <code>IfLiveKey</code> 
+    for this to work. API Keys can be requested by email to 
+    <a href="mailto:hello@infiniteflight.com">hello@infiniteflight.com</a>.
+</p>
+<hr />
+
+<h2>Sessions</h2>
+<p>
+    These are fetched using the <code>/v2/sessions</code> endpoint. Sessions are servers, so this table shows all
+    active public Infinite Flight servers.
+</p>
+<table class="table datatable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Max. Users</th>
+            <th>User Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model.Sessions)
+        {
+            <tr>
+                <td>@s.Name</td>
+                <td>@s.MaxUsers</td>
+                <td>@s.UserCount</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+
+<h2>Flights (@Model.Sessions.FirstOrDefault().Name)</h2>
+<p>
+    These are fetched using the <code>/v2/flights</code> endpoint. Information available through this endpoint includes position information,
+    user data, and aircraft data.
+</p>
+<table class="table datatable">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Callsign</th>
+            <th>FPL</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var f in Model.Flights)
+        {
+            <tr>
+                <td>@(f.Username == null ? "N/A" : f.Username)</td>
+                <td>@f.Callsign</td>
+                @{ var fpl = Model.FlightPlans.FirstOrDefault(p => p.FlightId == f.FlightId); }
+                <td>@(fpl == null ? "" : string.Join(" ", fpl.Waypoints))</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+
+<h2>ATC Facilities (IFATC Server)</h2>
+<p>
+    These are fetched using the <code>/v2/atc</code> endpoint. Information available through this endpoint includes airport information,
+    frequency information, and time data.
+</p>
+<table class="table datatable">
+    <thead>
+        <tr>
+            <th>Airport</th>
+            <th>Controller</th>
+            <th>Type</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var f in Model.AtcFacilities)
+        {
+            <tr>
+                <td>@f.AirportName</td>
+                <td>@f.Username</td>
+                <td>@Enum.GetName(typeof(FrequencyType), f.Type)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<hr />
+
+<h2>User Info (Random User)</h2>
+<p>
+    These are fetched using the <code>/v2/user/grade</code> endpoint. Information available through this endpoint includes detailed grade information,
+    report history, violation history, and other basic statistics.
+</p>
+<table class="table">
+    <tr>
+        <th>Username</th>
+        <td>@(Model.User.DiscourseUsername == null ? "N/A" : Model.User.DiscourseUsername)</td>
+    </tr>
+    <tr>
+        <th>VO</th>
+        <td>@(Model.User.VirtualOrganization == null ? "N/A" : Model.User.VirtualOrganization)</td>
+    </tr>
+    <tr>
+        <th># Violations</th>
+        <td>@Model.User.PilotStats.Violations.Count()</td>
+    </tr>
+    <tr>
+        <th># Reports</th>
+        <td>@Model.User.PilotStats.Reports.Count()</td>
+    </tr>
+    <tr>
+        <th># ATC Operations</th>
+        <td>@Model.User.PilotStats.AtcOperations</td>
+    </tr>
+    <tr>
+        <th>Grade</th>
+        <td>@Model.User.PilotStats.GradeDetails.Grades[Model.User.PilotStats.GradeDetails.GradeIndex].Name</td>
+    </tr>
+</table>

@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Infinite Flight Live API Sample</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        * {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        footer a {
+            color: #fff!important;
+        }
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script>
+</head>
+<body>
+    <div class="container mt-3">
+        <h1>Infinite Flight Live API - NodeJS Sample Documentation</h1>
+        <hr />
+
+        <h2>How to Use This Sample</h2>
+        <p>
+            This sample is intended as a hit-the-ground-running way to interact with the Infinite Flight Live API
+            in NodeJS or as a server-side application to censor your API Key when using JavaScript to make requests
+            in the browser. It uses the <code>InfiniteFlightLive</code> module to interact with the API, and as per the
+            <a href="#" target="_blank">license</a> you are free to use just this module or the 
+            entire sample in your own projects. You'll need to add your API Key to an ENV Variable called <code>IfLiveKey</code> 
+            for this to work. If you don't have direct control over environment variables for your system/host, use a .env file as seen 
+            <a href="https://www.freecodecamp.org/news/heres-how-you-can-actually-use-node-environment-variables-8fdf98f53a0a/">here</a>. 
+            API Keys can be requested by email to <a href="mailto:hello@infiniteflight.com">hello@infiniteflight.com</a>.
+        </p>
+        <p>
+            Below, you can find documentation for how to use the API part of this sample. All responses are the same as 
+            the Live API <code>results</code> field of the Live API endpoints, with the exception of all user-related 
+            endpoints, which return the full response from the API.
+        </p>
+        <hr />
+
+        <h2>Sessions</h2>
+        <p>
+            These are fetched using the <code>/v2/sessions</code> endpoint. Sessions are servers, so this endpoint
+            returns active public Infinite Flight servers.
+        </p>
+        <h4>Sample Request</h4>
+        <code>
+            GET https://example.com/sessions
+        </code>
+        <hr />
+
+        <h2>Flights</h2>
+        <p>
+            These are fetched using the <code>/v2/flights</code> endpoint. Information available through this endpoint includes position information,
+            user data, and aircraft data.
+        </p>
+        <h4>Sample Request</h4>
+        <code class="d-block">
+            GET https://example.com/sessions?server={sessionId}
+        </code>
+        <p>
+            <var>sessionId</var> is the ID of the Session you want to get flights for, as per the <code>/sessions</code> endpoint.
+        </p>
+        <hr />
+
+        <h2>Flight Plans</h2>
+        <p>
+            These are fetched using the <code>/v2/flightplans</code> endpoint. Information available through this endpoint is mainly waypoints.
+        </p>
+        <h4>Sample Request</h4>
+        <code class="d-block">
+            GET https://example.com/flight/flightplans?server={sessionId}
+        </code>
+        <p>
+            <var>sessionId</var> is the ID of the Session you want to get flight plans for, as per the <code>/sessions</code> endpoint.
+        </p>
+        <hr />
+
+        <h2>ATC Facilities</h2>
+        <p>
+            These are fetched using the <code>/v2/atc</code> endpoint. Information available through this endpoint includes airport information,
+            frequency information, and time data.
+        </p>
+        <h4>Sample Request</h4>
+        <code class="d-block">
+            GET https://example.com/atc?server={sessionId}
+        </code>
+        <p>
+            <var>sessionId</var> is the ID of the Session you want to get flight plans for, as per the <code>/sessions</code> endpoint.
+        </p>
+        <hr />
+
+        <h2>Grade Table</h2>
+        <p>
+            These are fetched using the <code>/v2/user/grade</code> endpoint. Information available through this endpoint includes detailed grade information,
+            report history, violation history, and other basic statistics.
+        </p>
+        <h4>Sample Request</h4>
+        <code class="d-block">
+            GET https://example.com/users?user={userId}
+        </code>
+        <p>
+            <var>userId</var> is the ID of the User you want to get Grade Information for, as per the <code>/atc</code> or <code>/flights</code> endpoint.
+        </p>
+        <hr />
+
+        <h2>User Statistics</h2>
+        <p>
+            These are fetched using the <code>/v2/user/stats</code> endpoint. Information available through this endpoint includes detailed grade information,
+            report history, violation history, and other basic statistics.
+        </p>
+        <h3>One User</h3>
+        <h4>Sample Request</h4>
+        <code class="d-block">
+            GET https://example.com/users/stats/single?user={userId}
+        </code>
+        <p>
+            <var>userId</var> is the ID of the User you want to get Statistics for, as per the <code>/atc</code> or <code>/flights</code> endpoint.
+        </p>
+        <h3>Multiple Users</h3>
+        <h4>Sample Request</h4>
+        <code class="d-block">
+            POST https://example.com/users/stats <br />
+            {"userIds": ["00000000-0000-0000-0000-000000000000", "11111111-1111-1111-1111-111111111111"]}
+        </code>
+    </div>
+    <footer class="bg-dark text-light text-center p-3 mt-3">
+        This sample was made by <a href="https://github.com/Velocity23">Kai Malcolm</a> for <a href="https://infiniteflight.com">Infinite Flight</a>. This sample code is
+        released under the {{TODO}} license and is available on GitHub <a href="#">here</a>.
+    </footer>
+</body>
+</html>

@@ -1,0 +1,12 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.dataTables_wrapper {
+    text-align: center;
+    justify-content: center;
+}
+
+footer a {
+    color: #fff!important;
+}

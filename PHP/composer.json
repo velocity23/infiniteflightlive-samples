@@ -1,0 +1,12 @@
+{
+    "name": "velocity23/iflivephpsample",
+    "require": {
+        "vlucas/phpdotenv": "^5.2"
+    },
+    "authors": [
+        {
+            "name": "Velocity23",
+            "email": "34199284+Velocity23@users.noreply.github.com"
+        }
+    ]
+}

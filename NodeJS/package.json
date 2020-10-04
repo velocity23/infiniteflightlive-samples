@@ -1,0 +1,19 @@
+{
+  "name": "if-live-node",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "start": "node app"
+  },
+  "description": "NodeJS Demo for the Infinite Flight Live API",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "axios": "^0.20.0",
+    "body-parser": "^1.15.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0"
+  }
+}
