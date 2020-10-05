@@ -1,7 +1,9 @@
 <?php
 require_once 'vendor/autoload.php';
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+if (file_exists(__DIR__."/.env")) {
+    $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+    $dotenv->load();
+}
 
 spl_autoload_register(function($class) {
     require_once __DIR__.'/classes/'.$class.'.php';
