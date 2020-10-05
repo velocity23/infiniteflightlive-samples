@@ -32,5 +32,5 @@ This will open up a development server on port `3000` (or `1337` in Visual Studi
 
 ## Using the InfiniteFlightLive Module
 
-This core of this sample is the `InfiniteFlightLive` module. It provides an interface to interact with the API. Detailed documentation on this is available on the help page (/help). I'm working on adding this client to npm.
+This core of this sample is the `InfiniteFlightLive` module. It provides an interface to interact with the API. Detailed documentation on this is available on the help page (/help). I'm working on adding a version of this client to npm.
 
