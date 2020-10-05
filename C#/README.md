@@ -15,4 +15,4 @@ To start the application, just use click the Start button in Visual Studio.
 
 ## Using the InfiniteFlightLive Class
 
-This core of this sample is the `InfiniteFlightLive` class. It is contained within the InfiniteFlightLiveClient folder, along with the models it depends on. To use this in your own project, just copy across the the folder. I'm working on adding this client to NuGet.
+This core of this sample is the `InfiniteFlightLive` class. It is contained within the InfiniteFlightLiveClient folder, along with the models it depends on. To use this in your own project, just copy across the the folder. I'm working on splitting the API Client into a separate project so it can better be reused.
