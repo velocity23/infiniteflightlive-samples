@@ -27,5 +27,3 @@ Once composer has finished, the sample will become functional. To run the sample
 ## Using the InfiniteFlight Class
 
 This core of this sample is the `InfiniteFlight` class. It provides an interface to interact with the API simply. Please note the `.env` file is only part of the sample. The sample sets the `IfLiveKey` variable from the ENV file, however all the class will try to do is pull it from this Environment Variable. To use the `InfiniteFlight` class without the sample, you will need to set the `IfLiveKey` ENV Variable or input your API Key another way.
-
-I'm working on adding this client to Composer.
