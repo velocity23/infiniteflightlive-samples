@@ -480,3 +480,4 @@ dist
 
 composer.phar
 PHP/vendor/
+PHP/classes/curl_cookie.txt
