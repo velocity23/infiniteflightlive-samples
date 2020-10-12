@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 
-namespace IfLiveCsharp.InfiniteFlightLiveClient
+namespace InfiniteFlightLiveClient.Types
 {
     public class SessionInfo
     {

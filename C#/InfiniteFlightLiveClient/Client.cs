@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using InfiniteFlightLiveClient.Types;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IfLiveCsharp.InfiniteFlightLiveClient
+namespace InfiniteFlightLiveClient
 {
-    public static class InfiniteFlightLive
+    public static class Client
     {
         private static string _apiKey;
         private static readonly string _baseUrl = "https://api.infiniteflight.com/public/v2";

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IfLiveCsharp.InfiniteFlightLiveClient
+namespace InfiniteFlightLiveClient.Types
 {
     public class UserStats
     {
@@ -37,7 +37,7 @@ namespace IfLiveCsharp.InfiniteFlightLiveClient
         public string Hash { get; set; }
         public string[] GroupNames
         {
-            get => InfiniteFlightLive.Groups.Where(g => Groups.Contains(g.Id)).Select(g => g.Name).ToArray();
+            get => Client.Groups.Where(g => Groups.Contains(g.Id)).Select(g => g.Name).ToArray();
         }
     }
 

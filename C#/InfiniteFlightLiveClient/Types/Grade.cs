@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace IfLiveCsharp.InfiniteFlightLiveClient
+namespace InfiniteFlightLiveClient.Types
 {
     public class Grade
     {

@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace IfLiveCsharp.InfiniteFlightLiveClient
+namespace InfiniteFlightLiveClient.Types
 {
     public class UserGradeInfo
     {
@@ -18,7 +18,7 @@ namespace IfLiveCsharp.InfiniteFlightLiveClient
         public GradeInfo PilotStats { get; set; }
         public string[] GroupNames
         {
-            get => InfiniteFlightLive.Groups.Where(g => Groups.Contains(g.Id)).Select(g => g.Name).ToArray();
+            get => Client.Groups.Where(g => Groups.Contains(g.Id)).Select(g => g.Name).ToArray();
         }
     }
 }

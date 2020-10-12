@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IfLiveCsharp.InfiniteFlightLiveClient
+namespace InfiniteFlightLiveClient.Types
 {
     public class AtcEntry
     {
@@ -28,7 +28,7 @@ namespace IfLiveCsharp.InfiniteFlightLiveClient
         public async Task<UserStats> GetUser()
         {
             Guid[] ids = { UserId };
-            return (await InfiniteFlightLive.GetUserStats(ids)).FirstOrDefault();
+            return (await Client.GetUserStats(ids)).FirstOrDefault();
         }
     }
 

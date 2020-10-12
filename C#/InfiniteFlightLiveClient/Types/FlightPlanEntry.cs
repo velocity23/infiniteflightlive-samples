@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IfLiveCsharp.InfiniteFlightLiveClient
+namespace InfiniteFlightLiveClient.Types
 {
     public class FlightPlanEntry
     {
@@ -24,7 +24,7 @@ namespace IfLiveCsharp.InfiniteFlightLiveClient
         /// <returns>Flight for the Flight Plan</returns>
         public async Task<FlightEntry> GetFlight(Guid sessionId)
         {
-            var flights = await InfiniteFlightLive.GetFlights(sessionId);
+            var flights = await Client.GetFlights(sessionId);
             return flights.FirstOrDefault(f => f.FlightId == FlightId);
         }
     }

@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IfLiveCsharp.InfiniteFlightLiveClient
+namespace InfiniteFlightLiveClient.Types
 {
     public class ReportEntry
     {
@@ -25,7 +25,7 @@ namespace IfLiveCsharp.InfiniteFlightLiveClient
         public async Task<UserStats> GetCreator()
         {
             Guid[] ids = { CreatorId };
-            var res = await InfiniteFlightLive.GetUserStats(ids);
+            var res = await Client.GetUserStats(ids);
             return res.FirstOrDefault();
         }
     }
