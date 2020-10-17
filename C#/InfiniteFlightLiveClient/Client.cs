@@ -110,12 +110,18 @@ namespace InfiniteFlightLiveClient
         /// </summary>
         /// <param name="userIds">User IDs</param>
         /// <returns>The Users' Stats</returns>
-        public static async Task<List<UserStats>> GetUserStats(Guid[] userIds)
+        public static async Task<List<UserStats>> GetUserStats(Guid[] userIds = null, string[] hashes = null, string[] ifcNames = null)
         {
-            var contentObj = new UserStatsRequest
+            if (userIds == null && hashes == null && ifcNames == null)
             {
-                UserIds = userIds
-            };
+                throw new ArgumentNullException();
+            }
+
+            var contentObj = new UserStatsRequest();
+            if (userIds != null) contentObj.UserIds = userIds;
+            if (hashes != null) contentObj.Hashes = hashes;
+            if (ifcNames != null) contentObj.IfcNames = ifcNames;
+
             var contentJson = JsonConvert.SerializeObject(contentObj);
             var content = new StringContent(contentJson, Encoding.UTF8, "application/json");
 
@@ -139,6 +145,10 @@ namespace InfiniteFlightLiveClient
         {
             [JsonProperty("userIds")]
             public Guid[] UserIds { get; set; }
+            [JsonProperty("userHashes")]
+            public string[] Hashes { get; set; }
+            [JsonProperty("discourseNames")]
+            public string[] IfcNames { get; set; }
         }
     }
 }
