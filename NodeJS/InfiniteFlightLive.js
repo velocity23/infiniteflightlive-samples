@@ -46,7 +46,7 @@ exports.atc = async (sessionId) => {
     return response.result;
 }
 
-exports.gradeTable = function (userId) => {
+exports.gradeTable = async (userId) => {
     const result = await axios.get(URLBASE + "/user/grade/" + userId + "?apikey=" + APIKEY);
     const response = result.data;
     if (response.errorCode != 0) {
