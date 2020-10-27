@@ -146,7 +146,7 @@ class InfiniteFlight {
     {
         $url = self::$BASE . "/user/stats?apikey=" . self::$APIKEY;
         $data = array(
-            "userIds" => $users,
+            "userIds" => $ids,
             "userHashes" => $hashes,
             "discourseNames" => $names
         );
