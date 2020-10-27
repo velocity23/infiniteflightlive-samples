@@ -45,14 +45,14 @@ namespace InfiniteFlightLiveClient.Types
         /// <returns>Flight Plan for the Flight</returns>
         public async Task<FlightPlanEntry> GetFlightPlan(Guid sessionId)
         {
-            var fpls = await Client.GetFlightPlans(sessionId);
+            var fpls = await Client.GetFlightPlansAsync(sessionId);
             return fpls.FirstOrDefault(p => p.FlightId == FlightId);
         }
 
         public async Task<UserStats> GetUser()
         {
             Guid[] ids = { UserId };
-            return (await Client.GetUserStats(ids)).FirstOrDefault();
+            return (await Client.GetUserStatsAsync(ids)).FirstOrDefault();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace InfiniteFlightLiveClient.Types
         /// <returns>Flight for the Flight Plan</returns>
         public async Task<FlightEntry> GetFlight(Guid sessionId)
         {
-            var flights = await Client.GetFlights(sessionId);
+            var flights = await Client.GetFlightsAsync(sessionId);
             return flights.FirstOrDefault(f => f.FlightId == FlightId);
         }
     }

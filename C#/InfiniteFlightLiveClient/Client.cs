@@ -25,9 +25,25 @@ namespace InfiniteFlightLiveClient
         /// Get All Active Public Infinite Flight Servers
         /// </summary>
         /// <returns>SessionInfo Objects of All Active Public Servers</returns>
-        public static async Task<List<SessionInfo>> GetSessions()
+        public static async Task<List<SessionInfo>> GetSessionsAsync()
         {
             var json = await _httpClient.GetStringAsync(_baseUrl + $"/sessions?apikey={_apiKey}");
+            var data = JsonConvert.DeserializeObject<ApiResponse<List<SessionInfo>>>(json);
+            if (data.ErrorCode != ResponseCode.Ok)
+            {
+                throw new Exception($"Invalid API Response Code. Expected Ok, received {data.ErrorCode}");
+            }
+
+            return data.Result;
+        }
+
+        /// <summary>
+        /// Get All Active Public Infinite Flight Servers
+        /// </summary>
+        /// <returns>SessionInfo Objects of All Active Public Servers</returns>
+        public static List<SessionInfo> GetSessions()
+        {
+            var json = _httpClient.GetStringAsync(_baseUrl + $"/sessions?apikey={_apiKey}").Result;
             var data = JsonConvert.DeserializeObject<ApiResponse<List<SessionInfo>>>(json);
             if (data.ErrorCode != ResponseCode.Ok)
             {
@@ -42,9 +58,26 @@ namespace InfiniteFlightLiveClient
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <returns>The Current Flights for the given Session</returns>
-        public static async Task<List<FlightEntry>> GetFlights(Guid sessionId)
+        public static async Task<List<FlightEntry>> GetFlightsAsync(Guid sessionId)
         {
             var json = await _httpClient.GetStringAsync(_baseUrl + $"/flights/{sessionId}?apikey={_apiKey}");
+            var data = JsonConvert.DeserializeObject<ApiResponse<List<FlightEntry>>>(json);
+            if (data.ErrorCode != ResponseCode.Ok)
+            {
+                throw new Exception($"Invalid API Response Code. Expected Ok, received {data.ErrorCode}");
+            }
+
+            return data.Result;
+        }
+
+        /// <summary>
+        /// Get All Flights for a Session
+        /// </summary>
+        /// <param name="sessionId">Session ID</param>
+        /// <returns>The Current Flights for the given Session</returns>
+        public static List<FlightEntry> GetFlights(Guid sessionId)
+        {
+            var json = _httpClient.GetStringAsync(_baseUrl + $"/flights/{sessionId}?apikey={_apiKey}").Result;
             var data = JsonConvert.DeserializeObject<ApiResponse<List<FlightEntry>>>(json);
             if (data.ErrorCode != ResponseCode.Ok)
             {
@@ -59,9 +92,26 @@ namespace InfiniteFlightLiveClient
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <returns>The Active Facilities for the given Session</returns>
-        public static async Task<List<AtcEntry>> GetAtcFacilities(Guid sessionId)
+        public static async Task<List<AtcEntry>> GetAtcFacilitiesAsync(Guid sessionId)
         {
             var json = await _httpClient.GetStringAsync(_baseUrl + $"/atc/{sessionId}?apikey={_apiKey}");
+            var data = JsonConvert.DeserializeObject<ApiResponse<List<AtcEntry>>>(json);
+            if (data.ErrorCode != ResponseCode.Ok)
+            {
+                throw new Exception($"Invalid API Response Code. Expected Ok, received {data.ErrorCode}");
+            }
+
+            return data.Result;
+        }
+
+        /// <summary>
+        /// Get All Active ATC Facilities for a Session
+        /// </summary>
+        /// <param name="sessionId">Session ID</param>
+        /// <returns>The Active Facilities for the given Session</returns>
+        public static List<AtcEntry> GetAtcFacilities(Guid sessionId)
+        {
+            var json = _httpClient.GetStringAsync(_baseUrl + $"/atc/{sessionId}?apikey={_apiKey}").Result;
             var data = JsonConvert.DeserializeObject<ApiResponse<List<AtcEntry>>>(json);
             if (data.ErrorCode != ResponseCode.Ok)
             {
@@ -76,9 +126,26 @@ namespace InfiniteFlightLiveClient
         /// </summary>
         /// <param name="sessionId">Session ID</param>
         /// <returns>All Existing Flight Plans for Aircraft Currently on the given Session</returns>
-        public static async Task<List<FlightPlanEntry>> GetFlightPlans(Guid sessionId)
+        public static async Task<List<FlightPlanEntry>> GetFlightPlansAsync(Guid sessionId)
         {
             var json = await _httpClient.GetStringAsync(_baseUrl + $"/flightplans/{sessionId}?apikey={_apiKey}");
+            var data = JsonConvert.DeserializeObject<ApiResponse<List<FlightPlanEntry>>>(json);
+            if (data.ErrorCode != ResponseCode.Ok)
+            {
+                throw new Exception($"Invalid API Response Code. Expected Ok, received {data.ErrorCode}");
+            }
+
+            return data.Result;
+        }
+
+        /// <summary>
+        /// Get All FLight Plans for a Session
+        /// </summary>
+        /// <param name="sessionId">Session ID</param>
+        /// <returns>All Existing Flight Plans for Aircraft Currently on the given Session</returns>
+        public static List<FlightPlanEntry> GetFlightPlans(Guid sessionId)
+        {
+            var json = _httpClient.GetStringAsync(_baseUrl + $"/flightplans/{sessionId}?apikey={_apiKey}").Result;
             var data = JsonConvert.DeserializeObject<ApiResponse<List<FlightPlanEntry>>>(json);
             if (data.ErrorCode != ResponseCode.Ok)
             {
@@ -93,9 +160,26 @@ namespace InfiniteFlightLiveClient
         /// </summary>
         /// <param name="userId">User ID</param>
         /// <returns>The Stats and Grade Table Information for the given User</returns>
-        public static async Task<UserGradeInfo> GetUserGrade(Guid userId)
+        public static async Task<UserGradeInfo> GetUserGradeAsync(Guid userId)
         {
             var json = await _httpClient.GetStringAsync(_baseUrl + $"/user/grade/{userId}?apikey={_apiKey}");
+            var data = JsonConvert.DeserializeObject<ApiResponse<UserGradeInfo>>(json);
+            if (data.ErrorCode != ResponseCode.Ok)
+            {
+                throw new Exception($"Invalid API Response Code. Expected Ok, received {data.ErrorCode}");
+            }
+
+            return data.Result;
+        }
+
+        /// <summary>
+        /// Get a User's Stats and Grade Table
+        /// </summary>
+        /// <param name="userId">User ID</param>
+        /// <returns>The Stats and Grade Table Information for the given User</returns>
+        public static UserGradeInfo GetUserGrade(Guid userId)
+        {
+            var json = _httpClient.GetStringAsync(_baseUrl + $"/user/grade/{userId}?apikey={_apiKey}").Result;
             var data = JsonConvert.DeserializeObject<ApiResponse<UserGradeInfo>>(json);
             if (data.ErrorCode != ResponseCode.Ok)
             {
@@ -110,7 +194,7 @@ namespace InfiniteFlightLiveClient
         /// </summary>
         /// <param name="userIds">User IDs</param>
         /// <returns>The Users' Stats</returns>
-        public static async Task<List<UserStats>> GetUserStats(Guid[] userIds = null, string[] hashes = null, string[] ifcNames = null)
+        public static async Task<List<UserStats>> GetUserStatsAsync(Guid[] userIds = null, string[] hashes = null, string[] ifcNames = null)
         {
             if (userIds == null && hashes == null && ifcNames == null)
             {
@@ -126,6 +210,37 @@ namespace InfiniteFlightLiveClient
             var content = new StringContent(contentJson, Encoding.UTF8, "application/json");
 
             var resJson = await (await _httpClient.PostAsync(_baseUrl + $"/user/stats?apikey={_apiKey}", content)).Content.ReadAsStringAsync();
+            var resData = JsonConvert.DeserializeObject<ApiResponse<List<UserStats>>>(resJson);
+
+            if (resData.ErrorCode != ResponseCode.Ok)
+            {
+                throw new Exception($"Invalid API Response Code. Expected Ok, received {resData.ErrorCode}");
+            }
+
+            return resData.Result;
+        }
+
+        /// <summary>
+        /// Get Stats for One or More Users
+        /// </summary>
+        /// <param name="userIds">User IDs</param>
+        /// <returns>The Users' Stats</returns>
+        public static List<UserStats> GetUserStats(Guid[] userIds = null, string[] hashes = null, string[] ifcNames = null)
+        {
+            if (userIds == null && hashes == null && ifcNames == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var contentObj = new UserStatsRequest();
+            if (userIds != null) contentObj.UserIds = userIds;
+            if (hashes != null) contentObj.Hashes = hashes;
+            if (ifcNames != null) contentObj.IfcNames = ifcNames;
+
+            var contentJson = JsonConvert.SerializeObject(contentObj);
+            var content = new StringContent(contentJson, Encoding.UTF8, "application/json");
+
+            var resJson = _httpClient.PostAsync(_baseUrl + $"/user/stats?apikey={_apiKey}", content).Result.Content.ReadAsStringAsync().Result;
             var resData = JsonConvert.DeserializeObject<ApiResponse<List<UserStats>>>(resJson);
 
             if (resData.ErrorCode != ResponseCode.Ok)

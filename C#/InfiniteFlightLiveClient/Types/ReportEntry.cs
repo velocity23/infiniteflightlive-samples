@@ -25,7 +25,7 @@ namespace InfiniteFlightLiveClient.Types
         public async Task<UserStats> GetCreator()
         {
             Guid[] ids = { CreatorId };
-            var res = await Client.GetUserStats(ids);
+            var res = await Client.GetUserStatsAsync(ids);
             return res.FirstOrDefault();
         }
     }

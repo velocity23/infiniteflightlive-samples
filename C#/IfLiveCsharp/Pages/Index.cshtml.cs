@@ -20,11 +20,11 @@ namespace IfLiveCsharp.Pages
 
         public async Task<ActionResult> OnGetAsync()
         {
-            Sessions = await Client.GetSessions();
-            Flights = await Client.GetFlights(Sessions.FirstOrDefault().Id);
-            FlightPlans = await Client.GetFlightPlans(Sessions.FirstOrDefault().Id);
-            AtcFacilities = await Client.GetAtcFacilities(new Guid("9316b12f-9449-4c9f-ae04-910ce6e94e43")); // TODO: Change to ES once updated
-            User = await Client.GetUserGrade(Flights.FirstOrDefault().UserId);
+            Sessions = await Client.GetSessionsAsync();
+            Flights = await Client.GetFlightsAsync(Sessions.FirstOrDefault().Id);
+            FlightPlans = await Client.GetFlightPlansAsync(Sessions.FirstOrDefault().Id);
+            AtcFacilities = await Client.GetAtcFacilitiesAsync(new Guid("9316b12f-9449-4c9f-ae04-910ce6e94e43")); // TODO: Change to ES once updated
+            User = await Client.GetUserGradeAsync(Flights.FirstOrDefault().UserId);
             return Page();
         }
     }

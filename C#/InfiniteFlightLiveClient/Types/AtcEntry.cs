@@ -28,7 +28,7 @@ namespace InfiniteFlightLiveClient.Types
         public async Task<UserStats> GetUser()
         {
             Guid[] ids = { UserId };
-            return (await Client.GetUserStats(ids)).FirstOrDefault();
+            return (await Client.GetUserStatsAsync(ids)).FirstOrDefault();
         }
     }
 
