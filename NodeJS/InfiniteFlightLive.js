@@ -6,7 +6,7 @@ require('dotenv').config();
 const APIKEY = process.env.IfLiveKey;
 const URLBASE = "https://api.infiniteflight.com/public/v2";
 
-exports.sessions = async function () {
+exports.sessions = async () => {
     let result = await axios.get(URLBASE + "/sessions?apikey=" + APIKEY);
     let response = result.data;
     if (response.errorCode != 0) {
@@ -16,7 +16,7 @@ exports.sessions = async function () {
     return response.result;
 }
 
-exports.flights = async function (sessionId) {
+exports.flights = async (sessionId) => {
     let result = await axios.get(URLBASE + "/flights/" + sessionId + "?apikey=" + APIKEY)
     let response = result.data;
     if (response.errorCode != 0) {
@@ -26,7 +26,7 @@ exports.flights = async function (sessionId) {
     return response.result;
 }
 
-exports.flightPlans = async function (sessionId) {
+exports.flightPlans = async (sessionId) => {
     let result = await axios.get(URLBASE + "/flightplans/" + sessionId + "?apikey=" + APIKEY);
     let response = result.data;
     if (response.errorCode != 0) {
@@ -36,7 +36,7 @@ exports.flightPlans = async function (sessionId) {
     return response.result;
 }
 
-exports.atc = async function (sessionId) {
+exports.atc = async (sessionId) => {
     let result = await axios.get(URLBASE + "/atc/" + sessionId + "?apikey=" + APIKEY);
     let response = result.data;
     if (response.errorCode != 0) {
@@ -46,7 +46,7 @@ exports.atc = async function (sessionId) {
     return response.result;
 }
 
-exports.gradeTable = async function (userId) {
+exports.gradeTable = function (userId) => {
     let result = await axios.get(URLBASE + "/user/grade/" + userId + "?apikey=" + APIKEY);
     let response = result.data;
     if (response.errorCode != 0) {
@@ -56,7 +56,7 @@ exports.gradeTable = async function (userId) {
     return response.result;
 }
 
-exports.userStats = async function (userIds) {
+exports.userStats = async (userIds) => {
     let result = await axios.post(URLBASE + "/user/stats?apikey=" + APIKEY, {
         userIds: userIds
     });
