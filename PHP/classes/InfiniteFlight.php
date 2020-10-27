@@ -27,6 +27,9 @@ class InfiniteFlight {
         "D07AFAD8-79DF-4363-B1C7-A5A1DDE6E3C8" => "Staff"
     ];
 
+    /**
+     * @var array
+     */
     public static $atcranks = ["Observer", "Trainee", "Apprentice", "Specialist", "Officer", "Supervisor", "Recruiter", "Manager"];
 
     /**
@@ -134,14 +137,18 @@ class InfiniteFlight {
     /**
      * Retrieve User Statistics for Multiple Users
      * 
-     * @param array $users Array of User IDs
+     * @param array $ids Array of User IDs
+     * @param array $hashes Array of User Hashes
+     * @param array $names Array of IFC Usernames
      * @return array
      */
-    public static function userStats($users)
+    public static function userStats($ids = [], $hashes = [], $names = [])
     {
         $url = self::$BASE . "/user/stats?apikey=" . self::$APIKEY;
         $data = array(
-            "userIds" => $users
+            "userIds" => $users,
+            "userHashes" => $hashes,
+            "discourseNames" => $names
         );
 
         $options = array(
