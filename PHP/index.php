@@ -122,8 +122,7 @@ spl_autoload_register(function($class) {
         </table>
         <hr />
 
-        <h2>ATC Facilities (IFATC Server)</h2>
-        <!-- TODO: Change this to Expert once Server is Updated -->
+        <h2>ATC Facilities (Expert Server)</h2>
         <p>
             These are fetched using the <code>/v2/atc</code> endpoint. Information available through this endpoint includes airport information, 
             frequency information, and time data.
@@ -139,7 +138,7 @@ spl_autoload_register(function($class) {
             <tbody>
                 <?php
                     $types = ["Ground", "Tower", "Unicom", "Delivery", "Approach", "Departure", "Center", "ATIS", "Aircraft", "Recorded", "Unknown", "Unused"];
-                    $facilities = InfiniteFlight::atcFacilities("9316b12f-9449-4c9f-ae04-910ce6e94e43");
+                    $facilities = InfiniteFlight::atcFacilities("7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856");
                     foreach ($facilities as $f) {
                         echo '<tr><td>';
                         echo $f->airportName == null ? "N/A" : $f->airportName;

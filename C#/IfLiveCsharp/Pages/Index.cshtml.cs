@@ -23,7 +23,7 @@ namespace IfLiveCsharp.Pages
             Sessions = await Client.GetSessionsAsync();
             Flights = await Client.GetFlightsAsync(Sessions.FirstOrDefault().Id);
             FlightPlans = await Client.GetFlightPlansAsync(Sessions.FirstOrDefault().Id);
-            AtcFacilities = await Client.GetAtcFacilitiesAsync(new Guid("9316b12f-9449-4c9f-ae04-910ce6e94e43")); // TODO: Change to ES once updated
+            AtcFacilities = await Client.GetAtcFacilitiesAsync(new Guid("7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856"));
             User = await Client.GetUserGradeAsync(Flights.FirstOrDefault().UserId);
             return Page();
         }
