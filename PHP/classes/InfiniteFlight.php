@@ -1,7 +1,8 @@
 <?php
 define("IFLIVEKEY", $_ENV["IfLiveKey"]);
 
-class InfiniteFlight {
+class InfiniteFlight
+{
     /**
      * Your Infinite Flight Live API Key
      * 
@@ -40,8 +41,8 @@ class InfiniteFlight {
     public static function sessions()
     {
         $curl = new Curl;
-        $req = $curl->get(self::$BASE."/sessions", ["apikey" => self::$APIKEY]);
-        
+        $req = $curl->get(self::$BASE . "/sessions", ["apikey" => self::$APIKEY]);
+
         $data = json_decode($req->body);
         if ($data->errorCode != 0) {
             throw new Exception("Invalid Response Code. Expected 0, received {$data->errorCode}");
@@ -59,9 +60,9 @@ class InfiniteFlight {
     public static function flights($sessionid)
     {
         $sessionid = urlencode($sessionid);
-        
+
         $curl = new Curl;
-        $req = $curl->get(self::$BASE."/flights/{$sessionid}", ["apikey" => self::$APIKEY]);
+        $req = $curl->get(self::$BASE . "/flights/{$sessionid}", ["apikey" => self::$APIKEY]);
 
         $data = json_decode($req->body);
         if ($data->errorCode != 0) {
@@ -77,12 +78,10 @@ class InfiniteFlight {
      * @param string $sessionid Session ID
      * @return array
      */
-    public static function flightPlans($sessionid)
+    public static function flightPlan($flightid)
     {
-        $sessionid = urlencode($sessionid);
-
         $curl = new Curl;
-        $req = $curl->get(self::$BASE."/flightplans/{$sessionid}", ["apikey" => self::$APIKEY]);
+        $req = $curl->get(self::$BASE . "/flight/{$flightid}/flightplan", ["apikey" => self::$APIKEY]);
 
         $data = json_decode($req->body);
         if ($data->errorCode != 0) {
@@ -103,7 +102,7 @@ class InfiniteFlight {
         $sessionid = urlencode($sessionid);
 
         $curl = new Curl;
-        $req = $curl->get(self::$BASE."/atc/{$sessionid}", ["apikey" => self::$APIKEY]);
+        $req = $curl->get(self::$BASE . "/atc/{$sessionid}", ["apikey" => self::$APIKEY]);
 
         $data = json_decode($req->body);
         if ($data->errorCode != 0) {
@@ -117,14 +116,14 @@ class InfiniteFlight {
      * Retrieve the Grade Table for a Given User
      * 
      * @param string $userid User ID
-     * @return array
+     * @return stdClass
      */
     public static function gradeTable($userid)
     {
         $userid = urlencode($userid);
 
         $curl = new Curl;
-        $req = $curl->get(self::$BASE."/user/grade/{$userid}", ["apikey" => self::$APIKEY]);
+        $req = $curl->get(self::$BASE . "/user/grade/{$userid}", ["apikey" => self::$APIKEY]);
 
         $data = json_decode($req->body);
         if ($data->errorCode != 0) {
@@ -153,18 +152,56 @@ class InfiniteFlight {
 
         $options = array(
             'http' => array(
-              'method'  => 'POST',
-              'content' => json_encode($data),
-              'header'=>  "Content-Type: application/json\r\n" .
-                          "Accept: application/json\r\n"
-              )
-          );
-          
-          $context  = stream_context_create($options);
-          $result = file_get_contents($url, false, $context);
-          $data = json_decode($result);
+                'method'  => 'POST',
+                'content' => json_encode($data),
+                'header' =>  "Content-Type: application/json\r\n" .
+                    "Accept: application/json\r\n"
+            )
+        );
 
-          if ($data->errorCode != 0) {
+        $context  = stream_context_create($options);
+        $result = file_get_contents($url, false, $context);
+        $data = json_decode($result);
+
+        if ($data->errorCode != 0) {
+            throw new Exception("Invalid Response Code. Expected 0, received {$data->errorCode}");
+        }
+
+        return $data->result;
+    }
+
+    /**
+     * Retrieve the ATIS for an airport on a specific server if it is active.
+     * 
+     * @param string $airport Airport ICOA
+     * @param string $server Session ID
+     * @return string
+     */
+    public static function atis($airport, $server)
+    {
+        $curl = new Curl;
+        $req = $curl->get(self::$BASE . "/airport/{$airport}/atis/{$server}", ["apikey" => self::$APIKEY]);
+
+        $data = json_decode($req->body);
+        if ($data->errorCode != 0) {
+            throw new Exception("Invalid Response Code. Expected 0, received {$data->errorCode}");
+        }
+
+        return $data->result;
+    }
+
+    /**
+     * Retrieve a list of Oceanic Tracks active in Infinite Flight multiplayer sessions.
+     * 
+     * @return array
+     */
+    public static function tracks()
+    {
+        $curl = new Curl;
+        $req = $curl->get(self::$BASE . "/tracks", ["apikey" => self::$APIKEY]);
+
+        $data = json_decode($req->body);
+        if ($data->errorCode != 0) {
             throw new Exception("Invalid Response Code. Expected 0, received {$data->errorCode}");
         }
 
@@ -177,7 +214,7 @@ class InfiniteFlight {
      * @return string
      * @param string $id GUID ID of Group
      */
-    public static function groupName($id) 
+    public static function groupName($id)
     {
         return self::$groups[$id];
     }

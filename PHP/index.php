@@ -1,16 +1,17 @@
 <?php
 require_once 'vendor/autoload.php';
-if (file_exists(__DIR__."/.env")) {
+if (file_exists(__DIR__ . "/.env")) {
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
     $dotenv->load();
 }
 
-spl_autoload_register(function($class) {
-    require_once __DIR__.'/classes/'.$class.'.php';
+spl_autoload_register(function ($class) {
+    require_once __DIR__ . '/classes/' . $class . '.php';
 });
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Infinite Flight Live API - PHP Sample</title>
     <meta charset="utf-8">
@@ -23,6 +24,7 @@ spl_autoload_register(function($class) {
     <script src="https://cdn.datatables.net/v/bs4/dt-1.10.21/datatables.min.js"></script>
     <script src="script.js"></script>
 </head>
+
 <body>
     <div class="container mt-3">
         <h1>Infinite Flight Live API - PHP Sample</h1>
@@ -31,17 +33,17 @@ spl_autoload_register(function($class) {
         <h2>How to Use This Sample</h2>
         <p>
             This sample is intended as a hit-the-ground-running way to interact with the Infinite Flight Live API
-            in PHP. It uses the <code>InfiniteFlight</code> class to interact with the API, and as per the <a href="#" target="_blank">license</a> 
-            you are free to use this in your own projects. You'll need to add your API Key to an ENV Variable called <code>IfLiveKey</code> 
-            for this to work. If you don't have direct control over environment variables for your system/host, use a .env file as seen 
-            <a href="https://www.freecodecamp.org/news/heres-how-you-can-actually-use-node-environment-variables-8fdf98f53a0a/">here</a>. API 
+            in PHP. It uses the <code>InfiniteFlight</code> class to interact with the API, and as per the <a href="#" target="_blank">license</a>
+            you are free to use this in your own projects. You'll need to add your API Key to an ENV Variable called <code>IfLiveKey</code>
+            for this to work. If you don't have direct control over environment variables for your system/host, use a .env file as seen
+            <a href="https://www.freecodecamp.org/news/heres-how-you-can-actually-use-node-environment-variables-8fdf98f53a0a/">here</a>. API
             Keys can be requested by email to <a href="mailto:hello@infiniteflight.com">hello@infiniteflight.com</a>.
         </p>
         <hr />
 
         <h2>Sessions</h2>
         <p>
-            These are fetched using the <code>/v2/sessions</code> endpoint. Sessions are servers, so this table shows all 
+            These are fetched using the <code>/v2/sessions</code> endpoint. Sessions are servers, so this table shows all
             active public Infinite Flight servers.
         </p>
         <table class="table datatable">
@@ -54,16 +56,16 @@ spl_autoload_register(function($class) {
             </thead>
             <tbody>
                 <?php
-                    $sessions = InfiniteFlight::sessions();
-                    foreach ($sessions as $s) {
-                        echo '<tr><td>';
-                        echo $s->name;
-                        echo '</td><td>';
-                        echo $s->maxUsers;
-                        echo '</td><td>';
-                        echo $s->userCount;
-                        echo '</td></tr>';
-                    }
+                $sessions = InfiniteFlight::sessions();
+                foreach ($sessions as $s) {
+                    echo '<tr><td>';
+                    echo $s->name;
+                    echo '</td><td>';
+                    echo $s->maxUsers;
+                    echo '</td><td>';
+                    echo $s->userCount;
+                    echo '</td></tr>';
+                }
                 ?>
             </tbody>
         </table>
@@ -71,7 +73,7 @@ spl_autoload_register(function($class) {
 
         <h2>Flights (Casual Server)</h2>
         <p>
-            These are fetched using the <code>/v2/flights</code> endpoint. Information available through this endpoint includes position information, 
+            These are fetched using the <code>/v2/flights</code> endpoint. Information available through this endpoint includes position information,
             user data, and aircraft data.
         </p>
         <table class="table datatable">
@@ -84,39 +86,42 @@ spl_autoload_register(function($class) {
             </thead>
             <tbody>
                 <?php
-                    $flights = InfiniteFlight::flights("5f3fdc11-35b8-4268-832f-42f1c6539ab9");
-                    foreach ($flights as $f) {
-                        echo '<tr><td>';
-                        echo $f->username == null ? "Anonymous" : $f->username;
-                        echo '</td><td>';
-                        echo $f->callsign;
-                        echo '</td><td>';
-                        echo round($f->altitude);
-                        echo 'ft</td></tr>';
-                    }
+                $flights = InfiniteFlight::flights("5f3fdc11-35b8-4268-832f-42f1c6539ab9");
+                foreach ($flights as $f) {
+                    echo '<tr><td>';
+                    echo $f->username == null ? "Anonymous" : $f->username;
+                    echo '</td><td>';
+                    echo $f->callsign;
+                    echo '</td><td>';
+                    echo round($f->altitude);
+                    echo 'ft</td></tr>';
+                }
                 ?>
             </tbody>
         </table>
         <hr />
 
-        <h2>Flight Plans (Casual Server)</h2>
+        <h2>Oceanic Tracks</h2>
         <p>
-            These are fetched using the <code>/v2/flightplans</code> endpoint. Information available through this endpoint is mainly waypoints.
+            These are fetched using the <code>/v2/tracks</code> endpoint.
         </p>
         <table class="table datatable">
             <thead>
                 <tr>
-                    <th>FPL</th>
+                    <th>Name</th>
+                    <th>Path</th>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                    $plans = InfiniteFlight::flightPlans("5f3fdc11-35b8-4268-832f-42f1c6539ab9");
-                    foreach ($plans as $fpl) {
-                        echo '<tr><td>';
-                        echo implode(" ", $fpl->waypoints);
-                        echo '</td></tr>';
-                    }
+                $tracks = InfiniteFlight::tracks();
+                foreach ($tracks as $t) {
+                    echo '<tr><td>';
+                    echo $t->name;
+                    echo '</td><td>';
+                    echo implode(" ", $t->path);
+                    echo '</td></tr>';
+                }
                 ?>
             </tbody>
         </table>
@@ -124,7 +129,7 @@ spl_autoload_register(function($class) {
 
         <h2>ATC Facilities (Expert Server)</h2>
         <p>
-            These are fetched using the <code>/v2/atc</code> endpoint. Information available through this endpoint includes airport information, 
+            These are fetched using the <code>/v2/atc</code> endpoint. Information available through this endpoint includes airport information,
             frequency information, and time data.
         </p>
         <table class="table datatable">
@@ -137,17 +142,17 @@ spl_autoload_register(function($class) {
             </thead>
             <tbody>
                 <?php
-                    $types = ["Ground", "Tower", "Unicom", "Delivery", "Approach", "Departure", "Center", "ATIS", "Aircraft", "Recorded", "Unknown", "Unused"];
-                    $facilities = InfiniteFlight::atcFacilities("7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856");
-                    foreach ($facilities as $f) {
-                        echo '<tr><td>';
-                        echo $f->airportName == null ? "N/A" : $f->airportName;
-                        echo '</td><td>';
-                        echo $f->username;
-                        echo '</td><td>';
-                        echo $types[$f->type];
-                        echo '</td></tr>';
-                    }
+                $types = ["Ground", "Tower", "Unicom", "Delivery", "Approach", "Departure", "Center", "ATIS", "Aircraft", "Recorded", "Unknown", "Unused"];
+                $facilities = InfiniteFlight::atcFacilities("7e5dcd44-1fb5-49cc-bc2c-a9aab1f6a856");
+                foreach ($facilities as $f) {
+                    echo '<tr><td>';
+                    echo $f->airportName == null ? "N/A" : $f->airportName;
+                    echo '</td><td>';
+                    echo $f->username;
+                    echo '</td><td>';
+                    echo $types[$f->type];
+                    echo '</td></tr>';
+                }
                 ?>
             </tbody>
         </table>
@@ -155,7 +160,7 @@ spl_autoload_register(function($class) {
 
         <h2>Grade Table (Random User)</h2>
         <p>
-            These are fetched using the <code>/v2/user/grade</code> endpoint. Information available through this endpoint includes detailed grade information, 
+            These are fetched using the <code>/v2/user/grade</code> endpoint. Information available through this endpoint includes detailed grade information,
             report history, violation history, and other basic statistics.
         </p>
         <?php $table = InfiniteFlight::gradeTable($flights[0]->userId); ?>
@@ -191,4 +196,5 @@ spl_autoload_register(function($class) {
         released under the {{TODO}} license and is available on GitHub <a href="#">here</a>.
     </footer>
 </body>
+
 </html>
