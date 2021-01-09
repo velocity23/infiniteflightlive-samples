@@ -1,12 +1,11 @@
 'use strict';
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const infiniteflight = require('../InfiniteFlightLive');
 
-var infiniteflight = require('../InfiniteFlightLive');
-
-router.get('/', async function (req, res) {
-    res.setHeader("Access-Control-Allow-Origin", process.env.CORS_DOMAIN);
-    res.contentType("application/json");
+router.get('/', async (_, res) => {
+    res.setHeader('Access-Control-Allow-Origin', process.env.CORS_DOMAIN);
+    res.contentType('application/json');
 
     let data;
 
@@ -15,8 +14,8 @@ router.get('/', async function (req, res) {
     } catch {
         res.status(500);
         data = JSON.stringify({
-            "error": 500,
-            "text": "Internal Server Error"
+            error: 500,
+            text: 'Internal Server Error',
         });
     }
 
