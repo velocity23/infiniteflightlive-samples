@@ -60,7 +60,7 @@
         </p>
         <h4>Sample Request</h4>
         <code class="d-block">
-            GET https://example.com/sessions?server={sessionId}
+            GET https://example.com/flights?server={sessionId}
         </code>
         <p>
             <var>sessionId</var> is the ID of the Session you want to get flights for, as per the <code>/sessions</code> endpoint.
@@ -73,10 +73,23 @@
         </p>
         <h4>Sample Request</h4>
         <code class="d-block">
-            GET https://example.com/flight/flightplan?flight={flightId}
+            GET https://example.com/flights/flightplan?flight={flightId}
         </code>
         <p>
             <var>flightId</var> is the ID of the Flight you want to get a flight plan for.
+        </p>
+        <hr />
+
+        <h2>Flight Route</h2>
+        <p>
+            These are fetched using the <code>/v2/flights/{id}/route</code> endpoint. Information available through this endpoint is historical position information.
+        </p>
+        <h4>Sample Request</h4>
+        <code class="d-block">
+            GET https://example.com/flights/route?flight={flightId}
+        </code>
+        <p>
+            <var>flightId</var> is the ID of the Flight you want to get the route for.
         </p>
         <hr />
 
