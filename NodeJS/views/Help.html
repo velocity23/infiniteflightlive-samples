@@ -67,16 +67,16 @@
         </p>
         <hr />
 
-        <h2>Flight Plans</h2>
+        <h2>Flight Plan</h2>
         <p>
-            These are fetched using the <code>/v2/flightplans</code> endpoint. Information available through this endpoint is mainly waypoints.
+            These are fetched using the <code>/v2/flights/{id}/flightplan</code> endpoint. Information available through this endpoint is mainly waypoints.
         </p>
         <h4>Sample Request</h4>
         <code class="d-block">
-            GET https://example.com/flight/flightplans?server={sessionId}
+            GET https://example.com/flight/flightplan?flight={flightId}
         </code>
         <p>
-            <var>sessionId</var> is the ID of the Session you want to get flight plans for, as per the <code>/sessions</code> endpoint.
+            <var>flightId</var> is the ID of the Flight you want to get a flight plan for.
         </p>
         <hr />
 
