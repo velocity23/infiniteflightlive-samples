@@ -1,16 +1,16 @@
 'use strict';
 // Libs
-var express = require('express');
-var logger = require('morgan');
-var bodyParser = require('body-parser');
+const express = require('express');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
 
 // Include Routes
-var index = require('./routes/index');
-var sessions = require('./routes/sessions');
-var flights = require('./routes/flights');
-var atc = require('./routes/atc');
-var users = require('./routes/users');
-var help = require('./routes/help');
+const index = require('./routes/index');
+const sessions = require('./routes/sessions');
+const flights = require('./routes/flights');
+const atc = require('./routes/atc');
+const users = require('./routes/users');
+const help = require('./routes/help');
 
 // Initialize Express
 var app = express();
