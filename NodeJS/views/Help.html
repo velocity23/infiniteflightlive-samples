@@ -151,10 +151,24 @@
             GET https://example.com/tracks
         </code>
         <hr />
+
+        <h2>Airport ATIS</h2>
+        <p>
+            These are fetched using the <code>/v2/airport/{icao}/atis/{server}</code> endpoint. Information available is the airport's ATIS, if any.
+        </p>
+        <h4>Sample Request</h4>
+        <code class="d-block">
+            GET https://example.com/atis?airport={icao}&server={server}
+        </code>
+        <p>
+            <var>icao</var> is the ICAO of the airport you want to get the ATIS for<br />
+            <var>server</var> is the Session ID to get ATIS for, as per the <code>/sessions</code> endpoint.
+        </p>
+        <hr />
     </div>
     <footer class="bg-dark text-light text-center p-3 mt-3">
         This sample was made by <a href="https://github.com/Velocity23">Kai Malcolm</a> for <a href="https://infiniteflight.com">Infinite Flight</a>. This sample code is
-        released under the {{TODO}} license and is available on GitHub <a href="#">here</a>.
+        released under the Apache 2.0 license and is available on GitHub <a href="https://github.com/velocity23/infiniteflightlive-samples">here</a>.
     </footer>
 </body>
 </html>
