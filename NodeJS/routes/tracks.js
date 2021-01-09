@@ -8,27 +8,18 @@ router.get('/', async (req, res) => {
     res.contentType('application/json');
 
     let data;
-    if (typeof req.query.server === 'undefined' || !req.query.server) {
-        res.status(400);
+    try {
+        data = JSON.stringify(await infiniteflight.tracks(req.query.server));
+    } catch {
+        res.status(500);
         data = JSON.stringify({
-            error: 400,
-            text: 'Bad Request',
+            error: 500,
+            text: 'Internal Server Error',
         });
-    } else {
-        try {
-            data = JSON.stringify(
-                await infiniteflight.tracks(req.query.server)
-            );
-        } catch {
-            res.status(500);
-            data = JSON.stringify({
-                error: 500,
-                text: 'Internal Server Error',
-            });
-        }
+    } finally {
+        res.write(data);
+        res.end();
     }
-    res.write(data);
-    res.end();
 });
 
 module.exports = router;
