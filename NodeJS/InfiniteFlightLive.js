@@ -11,7 +11,7 @@ const URLBASE = 'https://api.infiniteflight.com/public/v2';
  * @returns {Promise<{ maxUsers: number; id: string; userCount: number; type: number; }[]>} Active Public Servers
  * @see {@link https://infiniteflight.com/guide/developer-reference/live-api/sessions|Documentation}
  */
-export async function sessions() {
+module.exports.sessions = async function () {
     const result = await axios.get(`${URLBASE}/sessions?apikey=${APIKEY}`);
     const response = result.data;
     if (response.errorCode != 0) {
@@ -23,7 +23,7 @@ export async function sessions() {
     }
 
     return response.result;
-}
+};
 
 /**
  * Retrieve a list of all flights for a session
@@ -31,7 +31,7 @@ export async function sessions() {
  * @returns {Promise<{ username?: string; callsign: string; latitude: number; longitude: number; altitude: number; speed: number; verticalSpeed: number; track: number; lastReport: string; flightId: string; userId: string; aircraftId: string; liveryId:string; heading: number; virtualOrganization?:string; }[]>} Flights for the Session
  * @see {@link https://infiniteflight.com/guide/developer-reference/live-api/flights|Documentation}
  */
-export async function flights(sessionId) {
+module.exports.flights = async function (sessionId) {
     const result = await axios.get(
         `${URLBASE}/flights/${sessionId}?apikey=${APIKEY}`
     );
@@ -45,7 +45,7 @@ export async function flights(sessionId) {
     }
 
     return response.result;
-}
+};
 
 /**
  * Retrieve the flight plan for a specific active flight
@@ -53,7 +53,7 @@ export async function flights(sessionId) {
  * @returns {Promise<{ flightPlanItems: { name: string; type: number; children: { flightPlanItems: { name: string; type: number; identifier: string; altitude: number; location: { latitude: number; longitude: number; } }[]; identifier: string; altitude: number; location: { latitude: number; longitude: number; } }[]; flightPlanId: string; flightId: string; waypoints: string[]; lastUpdate: string; }}>} Requested Flight Plan
  * @see {@link https://infiniteflight.com/guide/developer-reference/live-api/flight-plan|Documentation}
  */
-export async function flightPlan(flightId) {
+module.exports.flightPlan = async function (flightId) {
     const result = await axios.get(
         `${URLBASE}/flights/${flightId}/flightplan?apikey=${APIKEY}`
     );
@@ -67,7 +67,7 @@ export async function flightPlan(flightId) {
     }
 
     return response.result;
-}
+};
 
 /**
  * Retrieve active Air Traffic Control frequencies for a session
@@ -75,7 +75,7 @@ export async function flightPlan(flightId) {
  * @returns {Promise<{ frequencyId: string; userId: string; username?: string; virtualOrganization?: string; airportName: string; type: number; latitude: number; longitude: number; startTime: string; }[]>} Active ATC Frequencies
  * @see {@link https://infiniteflight.com/guide/developer-reference/live-api/atc|Documentation}
  */
-export async function atc(sessionId) {
+module.exports.atc = async function (sessionId) {
     const result = await axios.get(
         `${URLBASE}/atc/${sessionId}?apikey=${APIKEY}`
     );
@@ -89,7 +89,7 @@ export async function atc(sessionId) {
     }
 
     return response.result;
-}
+};
 
 /**
  * Retrieve the full grade table and detailed statistics for a user
@@ -97,7 +97,7 @@ export async function atc(sessionId) {
  * @returns {Promise<{ gradeDetails: { grades: any[]; gradeIndex: number; }; totalXP: number; atcOperations: number; atcRank?: number; userId: string; violationCountByLevel: { level1: number; level2: number; level3: number; }; roles: number[]; virtualOrganization?: string; discourseUsername?: string; errorCode: number; }>} Full grade details
  * @see {@link https://infiniteflight.com/guide/developer-reference/live-api/user-grade|Documentation}
  */
-export async function gradeTable(userId) {
+module.exports.gradeTable = async function (userId) {
     const result = await axios.get(
         `${URLBASE}/user/grade/${userId}?apikey=${APIKEY}`
     );
@@ -111,7 +111,7 @@ export async function gradeTable(userId) {
     }
 
     return response.result;
-}
+};
 
 /**
  * Retrieve user statistics for multiple users, including their grade, flight time and username.
@@ -121,7 +121,7 @@ export async function gradeTable(userId) {
  * @returns {Promise<{ onlineFlights: number; violations: number; xp: number; landingCount: number; flightTime: number; atcOperations: number; atcRank: number; grade: number; hash: string; violationCountByLevel: { level1: number; level2: number; level3: number; }; roles: number[]; userId: string; virtualOrganization?: string; discourseUsername?: string; errorCode: number; }[]>}
  * @see {@link https://infiniteflight.com/guide/developer-reference/live-api/user-stats|Documentation}
  */
-export async function userStats(
+module.exports.userStats = async function (
     userIds = [],
     discourseNames = [],
     userHashes = []
@@ -141,7 +141,7 @@ export async function userStats(
     }
 
     return response;
-}
+};
 
 /**
  * Retrieve the flown route of a specific flight with position, altitude, speed and track information at different points in time. Please note, this is currently only supported on the Expert Server and Training Server.
@@ -149,7 +149,7 @@ export async function userStats(
  * @returns {Promise<{ latitude: number; longitude: number; altitude: number; track: number; groundSpeed: number; date: string; }[]>} Flight position reports
  * @see {@link https://infiniteflight.com/guide/developer-reference/live-api/flight-route|Documentation}
  */
-export async function flightRoute(flightId) {
+module.exports.flightRoute = async function (flightId) {
     const result = await axios.get(
         `${URLBASE}/flights/${flightId}/route?apikey=${APIKEY}`
     );
@@ -163,7 +163,7 @@ export async function flightRoute(flightId) {
     }
 
     return response.result;
-}
+};
 
 /**
  * Retrieve the ATIS for an airport on a specific server if it is active.
@@ -172,7 +172,7 @@ export async function flightRoute(flightId) {
  * @returns {Promise<string|null>} The ATIS, or `null` if it is not available
  * @see {@link https://infiniteflight.com/guide/developer-reference/live-api/atis|Documentation}
  */
-export async function atis(airportIcao, sessionId) {
+module.exports.atis = async function (airportIcao, sessionId) {
     const result = await axios.get(
         `${URLBASE}/airport/${airportIcao}/atis/${sessionId}?apikey=${APIKEY}`
     );
@@ -186,14 +186,14 @@ export async function atis(airportIcao, sessionId) {
     }
 
     return response.result;
-}
+};
 
 /**
  * Retrieve a list of Oceanic Tracks active in Infinite Flight multiplayer sessions.
  * @returns {Promise<{ name: string; path: string[]; eastLevels: number[]; westLevels: number[]; type: string; lastSeen: string; }>} Active Oceanic Tracks
  * @see {@link https://infiniteflight.com/guide/developer-reference/live-api/oceanic-tracks|Documentation}
  */
-export async function tracks() {
+module.exports.tracks = async function () {
     const result = await axios.get(`${URLBASE}/tracks?apikey=${APIKEY}`);
     const response = result.data;
     if (response.errorCode != 0) {
@@ -205,4 +205,4 @@ export async function tracks() {
     }
 
     return response.result;
-}
+};
